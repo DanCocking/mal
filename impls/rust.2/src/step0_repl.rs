@@ -29,6 +29,7 @@ fn main() -> Result<()>  {
         let readline = rl.readline("user> ");
         match readline {
             Ok(line) => {
+                let _ = rl.add_history_entry(line.clone());
                 rep(line);
             }
             Err(ReadlineError::Eof) => {
