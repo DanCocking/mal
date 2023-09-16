@@ -75,11 +75,10 @@ fn tokenize(s: &str) -> Vec<String> {
         )
         .unwrap();
     }
-    let mut vector: Vec<String> = RE.find_iter(s).map(|mat| mat.as_str().to_owned()).collect();
-    for st in vector.iter_mut() {
-        *st = st.trim().to_string()
-    }
-    vector.into_iter().filter(|item| !item.is_empty()).collect()
+    RE.find_iter(s)
+        .map(|mat| mat.as_str().trim().to_owned())
+        .filter(|item| !item.is_empty())
+        .collect()
 }
 
 pub fn read_str(s: &str) -> MalNode {
