@@ -1,6 +1,6 @@
 extern crate rustyline;
 
-use rustyline::{DefaultEditor, Result, error::ReadlineError};
+use rustyline::{error::ReadlineError, DefaultEditor, Result};
 
 fn read(s: String) -> String {
     s
@@ -8,7 +8,7 @@ fn read(s: String) -> String {
 
 fn eval(s: String) -> String {
     s
-} 
+}
 
 fn print(s: String) -> String {
     println!("{}", s);
@@ -21,9 +21,7 @@ fn rep(s: String) -> String {
     print(read_str)
 }
 
-
-
-fn main() -> Result<()>  {
+fn main() -> Result<()> {
     let mut rl = DefaultEditor::new()?;
     loop {
         let readline = rl.readline("user> ");
@@ -32,17 +30,12 @@ fn main() -> Result<()>  {
                 let _ = rl.add_history_entry(line.clone());
                 rep(line);
             }
-            Err(ReadlineError::Eof) => {
-                break Ok(())
-            } 
-            Err(ReadlineError::Interrupted) => {
-                break Ok(())
-            }
+            Err(ReadlineError::Eof) => break Ok(()),
+            Err(ReadlineError::Interrupted) => break Ok(()),
 
             Err(err) => {
                 println!("Error: {:?}", err);
             }
         }
-        
     }
 }
