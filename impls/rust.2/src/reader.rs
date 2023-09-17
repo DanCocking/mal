@@ -75,15 +75,15 @@ fn tokenize(s: &str) -> Vec<String> {
         )
         .unwrap();
     }
+    let remove_chars: &[char] = &[' ', ','];
     RE.find_iter(s)
-        .map(|mat| mat.as_str().trim().to_owned())
+        .map(|mat| mat.as_str().trim_matches(remove_chars).to_owned())
         .filter(|item| !item.is_empty())
         .collect()
 }
 
 pub fn read_str(s: &str) -> MalNode {
-    let s = s.replace(',', " ");
-    let mut reader = Reader::from_str(&s);
+    let mut reader = Reader::from_str(s);
     if reader.tokens.is_empty() {
         return MalNode::Nil;
     }
